@@ -4,32 +4,21 @@ var Hook = require('hook.io').Hook;
 var jsdom = new Hook( { name: "jsdom"} );
 var jsdomModule  = require("jsdom");
 
-
-
 jsdom.start();
 
-jsdom.on('i.build', function(event, data){
+jsdom.on('o.build', function(event, data){
   
- console.log('I am currently getting data on my inputs from: '.green + event.toString().yellow + ' ' + JSON.stringify(data).grey);
- 
  var window = jsdomModule.jsdom().createWindow();
-
  jsdomModule.jQueryify(window, "http://code.jquery.com/jquery-1.4.2.js", function(){
    window.jQuery('body').append(data);
-   console.log(window.jQuery(".testing").text());
-   jsdom.emit('out.window', window);
+   jsdom.emit('o.buildResponse', window.jQuery(".testing").text());
  });
  
- 
-});
-
-jsdom.on('o.*', function(event, data){
-   console.log('I am currently sending data to my ouputs on: '.green + event.toString().yellow + ' ' + JSON.stringify(data).grey);
 });
 
 
 jsdom.on('ready', function(){
   
-  jsdom.emit('i.build', "<div class='testing'>Hello World, It works!</div>")
+  jsdom.emit('o.build', "<div class='testing'>Hello World, It works!</div>")
   
 });
