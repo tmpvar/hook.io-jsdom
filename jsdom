@@ -6,7 +6,7 @@ var jsdomModule  = require("jsdom");
 
 jsdom.start();
 
-jsdom.on('o.build', function(event, data){
+jsdom.on('i.build.o.build', function(event, data){
   
  var window = jsdomModule.jsdom().createWindow();
  jsdomModule.jQueryify(window, "http://code.jquery.com/jquery-1.4.2.js", function(){
